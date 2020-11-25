@@ -9,7 +9,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
-
+                        <th scope="col">Roles</th>
                         <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -19,20 +19,16 @@
                                 <th scope="row">{{$user->id}}</th>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
-
+                                <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
                                 <td>
-                                    @can('edit-users')
                                     <a href="{{route('admin.users.edit', $user->id)}}" class="float-left">
                                         <button type="button" class="btn btn-info">Edit</button>
                                     </a>
-                                    @endcan
-                                    @can('delete-users')
                                     <form action="{{ route('admin.users.destroy', $user)}}" method="POST" class="float-left">
                                         @csrf
                                         {{method_field('DELETE')}}
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
-                                    @endcan
                                 </td>
                                 </tr>
                         @endforeach
