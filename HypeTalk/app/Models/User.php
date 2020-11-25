@@ -40,11 +40,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function ($user) {
+            $user->profile()->create([
+                'title' => $user->name.' profile',
+                'description' => 'N/A'
+            ]);
+        });
+    }
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
 
-
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
     public function isAdmin()
     {
         if($this->roles->whereIn('name', 'admin')->first())
@@ -55,7 +68,7 @@ class User extends Authenticatable
     }
     public function isUser()
     {
-        if(isAdmin() || $this->roles->whereIn('name', 'user')->first())
+        if($this->isAdmin() || $this->roles->whereIn('name', 'user')->first())
         {
             return true;
         }

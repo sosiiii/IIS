@@ -67,9 +67,17 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{ route('profile.show', Auth::user()) }}">
+                                        {{ __('My Profile') }}
+                                    </a>
                                     @can('admin-panel')
                                     <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                         {{ __('User managment') }}
+                                    </a>
+                                    @endcan
+                                    @can('group-create')
+                                    <a class="dropdown-item" href="{{ route('group.create') }}">
+                                        {{ __('Add new group') }}
                                     </a>
                                     @endcan
                                 </div>

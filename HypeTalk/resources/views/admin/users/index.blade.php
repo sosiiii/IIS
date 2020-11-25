@@ -17,7 +17,11 @@
                         @foreach ($users as $user)
                             <tr>
                                 <th scope="row">{{$user->id}}</th>
-                                <td>{{$user->name}}</td>
+                                <td>
+                                    <a href="{{route('profile.show', $user->profile)}}" class="float-left">
+                                        {{$user->name}}
+                                    </a>
+                                </td>
                                 <td>{{$user->email}}</td>
                                 <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
                                 <td>
