@@ -21,12 +21,12 @@ class UsersTableSeeder extends Seeder
         DB::table('role_user')->truncate();
 
         $adminRole = Role::where('name', 'admin')->first();
-        $useRole = Role::where('name', 'user')->first();
+        $userRole = Role::where('name', 'user')->first();
         User::create([
             'name' => 'admin',
             'email' => 'admin@hypetalk.com',
             'password' => Hash::make('admin')
-        ])->roles()->attach($useRole);
+        ])->roles()->attach($adminRole);
         User::create([
             'name' => 'majsner',
             'email' => 'majsner@hypetalk.com',
@@ -36,16 +36,16 @@ class UsersTableSeeder extends Seeder
             'name' => 'pepa',
             'email' => 'pepa@hypetalk.com',
             'password' => Hash::make('pepa')
-        ])->roles()->attach($useRole);
+        ])->roles()->attach($userRole);
         User::create([
             'name' => 'sosi',
             'email' => 'sosi@hypetalk.com',
             'password' => Hash::make('sosi')
-        ])->roles()->attach($useRole);
+        ])->roles()->attach($userRole);
         User::create([
             'name' => 'felmox',
             'email' => 'felmox@hypetalk.com',
             'password' => Hash::make('felmox')
-        ])->roles()->attach($useRole);
+        ])->roles()->attach($userRole);
     }
 }
