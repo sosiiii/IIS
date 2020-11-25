@@ -20,3 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->group(function(){
+    Route::resource('/users' , 'UsersController', ['only' => ['index', 'edit', 'update', 'destroy']]);
+});
