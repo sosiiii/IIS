@@ -18,6 +18,23 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: lightgrey;
+        }
+        .my-img {
+            position: relative;
+        }
+        .my-img i {
+            top: 70%;
+            left: 70%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+
 </head>
 <body>
     <div id="app">
@@ -88,8 +105,24 @@
             </div>
         </nav>
 
+        @yield('header')
         <main class="py-4">
-            @yield('content')
+
+            <div class="container">
+                <div class = "row my-row">
+                        
+                    <div class="col-md-8 my-col">
+                        @yield('left-side')
+                    </div>
+
+                    <div class="col-md-4 my-col">
+                        @yield('right-side')
+                    </div>
+                </div>
+            </div>
+            
+            @yield('footer')
+            
         </main>
     </div>
 </body>
