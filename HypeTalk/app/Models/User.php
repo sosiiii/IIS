@@ -58,6 +58,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
     public function isAdmin()
     {
         if($this->roles->whereIn('name', 'admin')->first())

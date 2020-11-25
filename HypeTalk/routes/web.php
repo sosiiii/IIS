@@ -29,5 +29,8 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')-
     Route::resource('/users' , 'UsersController', ['only' => ['index', 'edit', 'update', 'destroy']]);
 });
 Route::namespace('App\Http\Controllers\Group')->group(function(){
-    Route::resource('group' , 'GroupsController', ['only' => ['create', 'show', 'edit', 'update']]);
+    Route::resource('group' , 'GroupsController', ['only' => ['create', 'show', 'edit', 'update', 'store']]);
+});
+Route::namespace('App\Http\Controllers\Group')->prefix('group/{group}')->name('group.')->group(function(){
+    Route::resource('/members' , 'MembershipsController', ['only' => ['index','edit', 'update', 'destroy', 'store']]);
 });
