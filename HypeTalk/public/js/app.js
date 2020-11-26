@@ -1917,15 +1917,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['groupId'],
+  props: ['groupId', 'role'],
   mounted: function mounted() {
     console.log('Component mounted.');
   },
+  data: function data() {
+    return {
+      status: this.role
+    };
+  },
   methods: {
     askToJoinGroup: function askToJoinGroup() {
+      var _this = this;
+
       axios.post('/group/' + this.groupId + '/members/').then(function (response) {
-        alert(response.data);
+        _this.status = response.data;
       });
+    }
+  },
+  computed: {
+    buttonText: function buttonText() {
+      return this.status === 'not_in_table' ? 'Ask to join' : this.status === 'member_request' ? 'Cancel request' : 'Leave';
     }
   }
 });
@@ -37583,6 +37595,7 @@ var render = function() {
         {
           staticClass: "btn btn-info",
           attrs: { type: "button" },
+          domProps: { textContent: _vm._s(_vm.buttonText) },
           on: { click: _vm.askToJoinGroup }
         },
         [_vm._v("Ask to join")]

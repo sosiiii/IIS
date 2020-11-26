@@ -57,7 +57,17 @@ class GroupsController extends Controller
      */
     public function show(Group $group)
     {
-        return view('group.show')->with('group', $group);
+        $member = $group->members()->find(auth()->user()->id);
+        $role = 'not_in_table';
+        if($member != null)
+        {
+            $role = $member->pivot->role;
+        }
+
+        return view('group.show')->with([
+            'group' => $group,
+            'role' => $role
+        ]);
     }
 
     /**

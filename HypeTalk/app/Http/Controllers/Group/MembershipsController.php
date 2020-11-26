@@ -33,23 +33,25 @@ class MembershipsController extends Controller
      */
     public function store(Group $group)
     {
-        //$member = $group->members()->find(auth()->user()->id);
-        if($group->members()->find(auth()->user()->id))
+        $member = $group->members()->find(auth()->user()->id);
+        if($member)
         {
-            auth()->user()->groups()->toggle($group);
+            if(strcmp($member->pivot->role, 'member_request') == 0)
+            {
+                auth()->user()->groups()->toggle($group);
+                return 'not_in_table';
+            }
+            else
+            {
+                auth()->user()->groups()->toggle($group);
+                return 'member';
+            }
         }
         else
         {
             $group->members()->attach(auth()->user()->id, ['role' => 'member_request']);
-            /*
-            auth()->user()->groups()->toggle($group);
-            $member = $group->members()->find(auth()->user()->id);
-            $member->pivot->role = 'member_request';
-            $member->pivot->save();
-            */
+            return 'member_request';
         }
-
-        return '';
     }
     /**
      * Show the form for editing the specified resource.
