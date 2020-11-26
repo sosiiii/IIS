@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.content_pages_template')
 
 
 <?php $authorized = $profile->user_id == Auth::id(); ?>
