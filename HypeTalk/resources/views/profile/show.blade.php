@@ -65,7 +65,7 @@
 
 @section('right-side')
     <div class="row my-row justify-content-center" style="padding-bottom:20px">
-        <div class="card shadow-lg" style="width:400px;border-radius: 5%;">
+        <div class="card shadow-lg border" style="width:400px;background-color:#e0e0e0">
             <div class="card-body d-flex flex-row">
                 <div class="card-body flex-column my-img">
                     @if($authorized)
@@ -90,20 +90,22 @@
             </div>
         </div>
     </div>
-
+    
     <div class="row my-row" style="padding-bottom:20px">
         <div class="jumbotron flex-fill card shadow-lg" style="width:400px;border-radius: 5%">
-            @if(false)
+            @if ($profile->description)
                 <h4>Description: 
+                    @if ($authorized)
                     <a href="#" style="color:black">
                         <small class="ml-5" style="font-size: 13px"> make a change </small>
                         <i class="fas fa-edit" style="font-size:25px"></i>
                     </a>
+                    @endif
                 </h4>
                 <p>
-                    {{ "profile->description" }}
+                    {{ $profile->description }}
                 </p>
-            @elseif($authorized)
+            @elseif ($authorized)
                 <h4>Description:</h4>
                 <p>
                     {{"Add description to your profile."}}
