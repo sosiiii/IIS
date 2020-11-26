@@ -4,11 +4,11 @@
 <?php 
 use App\Models\User;
 use App\Models\Group;
-$authorized = $profile->user_id == Auth::id(); 
 $user = User::all()->where('id', $profile->user_id)->first();
 $group_ids = DB::table('group_user')->where('user_id', $profile->user_id)->pluck('group_id');
 $user_groups = Group::all()->whereIn('id', $group_ids);
 
+$authorized = $profile->user_id == Auth::id() || $user->isAdmin(); 
 ?>
 @section('header')
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm justify-content-center">
@@ -189,9 +189,11 @@ $user_groups = Group::all()->whereIn('id', $group_ids);
                 <div class="row border-bottom border-secondary justify-content-center">
                  In {{$num_groups}} groups.
                 </div>
+                @if ($authorized)
                 <div class="row justify-content-center"style="font-size:19px;">
-                    Edit account information.
+                    <a href="/profile/{{$user->id}}/edit">Edit account information.</a> 
                 </div></div>
+                @endif
             </div>
 
             <script>
@@ -204,7 +206,7 @@ $user_groups = Group::all()->whereIn('id', $group_ids);
     </div>
     
     <div class="row my-row" style="padding-bottom:20px">
-        <div class="jumbotron flex-fill card shadow-lg" style="width:400px;border-radius: 5%">
+        <div class="jumbotron flex-fill card shadow-lg border-secondary" style="width:400px;">
             @if ($profile->description != "N/A")
                 <h4>Description: 
                     @if ($authorized)
@@ -262,9 +264,6 @@ $user_groups = Group::all()->whereIn('id', $group_ids);
                 @enderror
             </div>
         </div>
-
-
-
 
         <!-- Modal footer -->
         <div class="modal-footer">
