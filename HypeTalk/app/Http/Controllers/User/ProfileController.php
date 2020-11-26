@@ -66,7 +66,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        $profile->title = $request->title;
+        if ($request->title) {
+            $profile->title = $request->title;
+        }
         $profile->description = $request->description;
         $profile->save();
 
