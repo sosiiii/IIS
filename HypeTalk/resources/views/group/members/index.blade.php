@@ -4,6 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 <table class="table table-striped table-dark">
+                    <h1>{{$group->name.' members'}}</h1>
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -24,7 +25,7 @@
                                 </td>
                                 <td>{{$member->email}}</td>
                                 <td>
-                                    {{$member->pivot->role}}
+                                    <span class="badge badge-pill badge-info">{{$member->pivot->role}}</span>
                                 </td>
                                 <td>
                                     <a href="{{route('group.members.update', [$group, $member])}}" class="float-left">

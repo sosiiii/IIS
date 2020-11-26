@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Group;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class GroupsController extends Controller
 {
@@ -16,8 +15,8 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $groups = auth()->user()->groups()->wherePivot('role', '=', 'admin', 'or')->wherePivot('role', '=', 'manager')->get();
-        return view('group.index')->with('groups', $groups);
+        $groups = auth()->user()->groups()->wherePivot('role', 'admin')->get();
+        return view('admin.groups.index')->with('groups', $groups);
     }
 
     /**
@@ -27,7 +26,7 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        return view('group.create');
+        //
     }
 
     /**
@@ -38,15 +37,7 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'description' => ''
-        ]);
-        $group = auth()->user()->groups()->create($data);
-        $member = $group->members()->find(auth()->user()->id);
-        $member->pivot->role = 'admin';
-        $member->pivot->save();
-        return redirect(route('group.show', $group));
+        //
     }
 
     /**
@@ -57,7 +48,7 @@ class GroupsController extends Controller
      */
     public function show(Group $group)
     {
-        return view('group.show')->with('group', $group);
+        //
     }
 
     /**
@@ -68,11 +59,7 @@ class GroupsController extends Controller
      */
     public function edit(Group $group)
     {
-        if(Gate::denies('group-edit', $group))
-        {
-            return redirect(route('group.show', $group));
-        }
-        return view('group.edit')->with('group', $group);
+        //
     }
 
     /**
@@ -84,11 +71,7 @@ class GroupsController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        $group->name = $request->name;
-        $group->description = $request->description;
-        $group->save();
-
-        return redirect()->route('group.show', $group);
+        //
     }
 
     /**

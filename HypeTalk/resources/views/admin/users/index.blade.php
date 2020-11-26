@@ -23,7 +23,11 @@
                                     </a>
                                 </td>
                                 <td>{{$user->email}}</td>
-                                <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
+                                <td>
+                                    @foreach ($user->roles()->get()->pluck('name')->toArray() as $role)
+                                        <span class="badge badge-pill badge-info">{{$role}}</span>
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a href="{{route('admin.users.edit', $user->id)}}" class="float-left">
                                         <button type="button" class="btn btn-info">Edit</button>

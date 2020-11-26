@@ -31,9 +31,10 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <my-bar></my-bar>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,6 +74,11 @@
                                     @can('admin-panel')
                                     <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                         {{ __('User managment') }}
+                                    </a>
+                                    @endcan
+                                    @can('group-manage')
+                                    <a class="dropdown-item" href="{{ route('admin.groups.index') }}">
+                                        {{ __('Group managment') }}
                                     </a>
                                     @endcan
                                     @can('group-create')
