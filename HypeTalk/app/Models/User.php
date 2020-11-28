@@ -74,6 +74,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rating::class);
     }
+    public function commentrating()
+    {
+        return $this->hasMany(CommentRating::class);
+    }
     public function isGroupAdminOrManager()
     {
         $result = $this->groups()

@@ -8,30 +8,40 @@
 <script>
     export default {
 
-        props: ['groupId', 'myRating'],
+        props: ['commentId', 'commentRating'],
 
         mounted() {
             console.log('Component mounted.')
         },
         data: function () {
             return {
-                status: this.myRating,
+                myRating: this.myRating,
+                commentRatngValue: this.commentRating
             }
         },
 
         methods: {
             upVote() {
-                alert('Upvoted');
+                axios.post('/rating/comment/'+this.commentId, {
+                    value: 1
+                })
+                .then(response => {
+                   this.commentRatngValue = response.data;
+                })
 
             },
             downVote() {
-                alert('Downvoted');
+                axios.post('/rating/comment/'+this.commentId, {
+                    value: -1
+                })
+                .then(response => {
+                    this.commentRatngValue = response.data;
+                })
             }
         },
         computed: {
             buttonText() {
-                return '0';
-
+                return this.commentRatngValue;
             }
         }
     }

@@ -2049,26 +2049,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['groupId', 'myRating'],
+  props: ['commentId', 'commentRating'],
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   data: function data() {
     return {
-      status: this.myRating
+      myRating: this.myRating,
+      commentRatngValue: this.commentRating
     };
   },
   methods: {
     upVote: function upVote() {
-      alert('Upvoted');
+      var _this = this;
+
+      axios.post('/rating/comment/' + this.commentId, {
+        value: 1
+      }).then(function (response) {
+        _this.commentRatngValue = response.data;
+      });
     },
     downVote: function downVote() {
-      alert('Downvoted');
+      var _this2 = this;
+
+      axios.post('/rating/comment/' + this.commentId, {
+        value: -1
+      }).then(function (response) {
+        _this2.commentRatngValue = response.data;
+      });
     }
   },
   computed: {
     buttonText: function buttonText() {
-      return '0';
+      return this.commentRatngValue;
     }
   }
 });

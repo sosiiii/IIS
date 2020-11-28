@@ -37,6 +37,7 @@ Route::namespace('App\Http\Controllers\Group')->prefix('group/{group}')->name('g
 });
 
 Route::post('/rating/post/{post}', [App\Http\Controllers\Group\PostRatingController::class, 'store'])->name('rating.post.store');
+Route::post('/rating/comment/{comment}', [App\Http\Controllers\Group\CommentRatingController::class, 'store'])->name('rating.comment.store');
 Route::get('/search', [App\Http\Controllers\Group\GroupsSearchController::class, 'index'])->name('search');
 //Route::post('/create', [App\Http\Controllers\Group\CommentController::class, 'store'])->name('create');
 
