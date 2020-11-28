@@ -50,7 +50,8 @@ class PostRatingController extends Controller
             $postRating->save();
         }
         $rating->update(array('value' => $data->value));
-        return $post->ratings()->sum('value');
+        $post->update(array('rating' => $post->ratings->sum('value')));
+        return $post->rating;
 
     }
 

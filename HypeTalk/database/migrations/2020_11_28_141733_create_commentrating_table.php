@@ -17,7 +17,7 @@ class CreateCommentRatingTable extends Migration
             $table->id();
             $table->unsignedBigInteger('comment_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('value');
+            $table->integer('value')->default(0);
             $table->timestamps();
         });
     }

@@ -63,9 +63,10 @@ class GroupsController extends Controller
         {
             $role = $member->pivot->role;
         }
-
+        $posts = $group->posts->sortByDesc('rating');
         return view('group.show')->with([
             'group' => $group,
+            'posts' => $posts,
             'role' => $role
         ]);
     }

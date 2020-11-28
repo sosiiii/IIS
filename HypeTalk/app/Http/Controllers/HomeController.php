@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Group;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::All();
-        return view('home')->with('posts', $posts);
+        $posts = Post::orderByDesc('rating')->get();
+        $groups = Group::All();
+        return view('home')->with([
+            'posts' => $posts,
+            'groups' => $groups
+        ]);
     }
 }
