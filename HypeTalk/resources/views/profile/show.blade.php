@@ -1,21 +1,28 @@
 @extends('layouts.content_pages_template')
 
 @section('header')
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm justify-content-center">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#" style="border-bottom: 3px solid darkgray;">POSTS</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">COMMENTS</a>
-            </li>
-        </ul>
-    </nav>
+<ul class="nav nav-pills justify-content-center bg-light p-2" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Posts</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Comments</a>
+    </li>
+  </ul>
 @endsection
 @section('left-side')
-    @foreach ($posts as $post)
-        @include('layouts.post_template', $post)
-    @endforeach
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        @foreach ($posts as $post)
+            @include('layouts.post_template', $post)
+        @endforeach
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        @foreach ($comments as $comment)
+            @include('layouts.comment_template', $comment)
+        @endforeach
+    </div>
+</div>
 
 @endsection
 @section('right-side')

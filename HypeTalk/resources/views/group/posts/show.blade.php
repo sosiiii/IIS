@@ -16,9 +16,9 @@
         <div class=""><h4>{{"Members"}}</h4></div>
     </div>
     <div class="d-flex flex-wrap">
-            @foreach ($group->members as $member)
-               <a href="{{route('profile.show', $member)}}" class="badge badge-pill badge-primary p-2 mr-2">{{$member->name}}</a>
-            @endforeach
+        @foreach ($group->members as $member)
+            <a href="{{route('profile.show', $member)}}" class="badge badge-pill badge-primary p-2 mr-2">{{$member->name}}</a>
+        @endforeach
     </div>
 </div>
 @endsection

@@ -40,11 +40,13 @@ class ProfileController extends Controller
     public function show(Profile $profile)
     {
         $posts = $profile->user->posts->sortByDesc('rating');
+        $comments = $profile->user->comments->sortByDesc('rating');
         $groups = $profile->user->groups;
         return view('profile.show')->with([
             'profile' => $profile,
             'groups' => $groups,
-            'posts' => $posts
+            'posts' => $posts,
+            'comments' => $comments
         ]);
     }
 

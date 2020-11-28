@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="p-1">
-                    @foreach ($comments as $comment)
+                    @foreach ($post->comments as $comment)
                         @include('layouts.comment_template', $comment)
                     @endforeach
                 </div>
