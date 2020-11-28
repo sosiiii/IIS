@@ -17,11 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::namespace('App\Http\Controllers')->group(function(){
-    Route::resource('/' , 'HomeController', ['only' => ['index']]);
-});
+
 Route::namespace('App\Http\Controllers\User')->group(function(){
     Route::resource('profile' , 'ProfileController', ['only' => ['show', 'edit', 'update']]);
 });
@@ -34,6 +32,11 @@ Route::namespace('App\Http\Controllers\Group')->group(function(){
 });
 Route::namespace('App\Http\Controllers\Group')->prefix('group/{group}')->name('group.')->group(function(){
     Route::resource('/members' , 'MembershipsController', ['only' => ['index','edit', 'update', 'destroy', 'store']]);
+    Route::resource('/posts' , 'PostsController', ['only' => ['show', 'edit', 'update', 'destroy', 'store', 'create']]);
+    Route::resource('/posts/{post}/comment' , 'CommentController', ['only' => ['store']]);
 });
 
+Route::post('/rating/post/{post}', [App\Http\Controllers\Group\PostRatingController::class, 'store'])->name('rating.post.store');
 Route::get('/search', [App\Http\Controllers\Group\GroupsSearchController::class, 'index'])->name('search');
+//Route::post('/create', [App\Http\Controllers\Group\CommentController::class, 'store'])->name('create');
+

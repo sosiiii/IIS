@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -34,9 +34,25 @@
 
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <my-bar></my-bar>
+                    @guest
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ 'My Groups' }}
+                            </a>
+                            @if(Auth::user()->groups)
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @foreach (Auth::user()->groups as $group)
+                                        <a class="dropdown-item" href="{{ route('group.show', $group) }}">
+                                            {{ $group->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </li>
+                    @endguest
                     </ul>
-
+                    <my-bar></my-bar>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

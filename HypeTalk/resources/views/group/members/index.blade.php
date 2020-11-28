@@ -28,6 +28,9 @@
                                     <span class="badge badge-pill badge-info">{{$member->pivot->role}}</span>
                                 </td>
                                 <td>
+                                    <a href="{{route('group.members.edit', [$group->id, $member->id])}}" class="float-left">
+                                        <button type="button" class="btn btn-info">Edit</button>
+                                    </a>
                                 </td>
                                 </tr>
                         @endforeach

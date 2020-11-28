@@ -41,7 +41,7 @@
                             <div class="d-flex justify-content-center">
                                 @foreach ($roles as $role)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->id }}" @if($user->roles->contains($role->id)) checked=checked @endif/>
+                                    <input class="form-check-input" type="radio" name="roles[]" value="{{ $role->id }}" @if($user->roles->contains($role->id)) checked=checked @endif/>
                                     <label class="form-check-label" for="inlineCheckbox1">{{$role->name}}</label>
                                 </div>
                                 @endforeach

@@ -21,6 +21,9 @@ window.Vue = require('vue');
 
 Vue.component('button-join-group', require('./components/ButtonJoinGroup.vue').default);
 Vue.component('my-bar', require('./components/MySearchBar.vue').default);
+Vue.component('post-textarea', require('./components/PostTextArea.vue').default);
+Vue.component('up-down-vote-post', require('./components/UpDownVotePost.vue').default);
+Vue.component('up-down-vote-comment', require('./components/UpDownVoteComment.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

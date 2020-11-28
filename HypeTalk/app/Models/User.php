@@ -62,6 +62,18 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Group::class);
     }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
     public function isGroupAdminOrManager()
     {
         $result = $this->groups()

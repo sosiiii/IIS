@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Group;
 use App\Http\Controllers\Controller;
 use App\Models\Membership;
 use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MembershipsController extends Controller
@@ -59,9 +60,13 @@ class MembershipsController extends Controller
      * @param  \App\Models\Membership  $membership
      * @return \Illuminate\Http\Response
      */
-    public function edit(Membership $membership)
+    public function edit(Group $group, User $member)
     {
-        //
+        $member = $group->members()->find($member->id);
+        return view('group.members.edit')->with([
+            'group' => $group,
+            'member' => $member
+        ]);
     }
 
     /**
@@ -71,9 +76,14 @@ class MembershipsController extends Controller
      * @param  \App\Models\Membership  $membership
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Membership $membership)
+    public function update(Request $request, Group $group, User $member)
     {
-        //
+        $member = $group->members()->find($member->id);
+
+        $member->pivot->role = $request->role;
+        $member->pivot->save();
+
+        return redirect()->route('group.members.index', [$group, $member]);
     }
 
     /**

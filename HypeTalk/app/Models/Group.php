@@ -25,6 +25,10 @@ class Group extends Model implements Searchable
     {
         return $this->belongsToMany(User::class)->withPivot('role');
     }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
     public function getSearchResult(): SearchResult
     {
        $url = route('group.show', $this->id);
