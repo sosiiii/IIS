@@ -39,6 +39,10 @@ class CommentController extends Controller
      */
     public function store(Request $request, Group $group, Post $post)
     {
+        if(!Auth()->check())
+        {
+            return;
+        }
         $data = request();
         $comment = new Comment([
             'title' => $data->title,

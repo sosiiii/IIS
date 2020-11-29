@@ -31,7 +31,6 @@
         computed: {
             buttonText() {
                 return (this.status === 'not_in_table') ? 'Ask to join' : (this.status === 'member_request') ? 'Cancel request' : 'Leave';
-
             }
         }
     }

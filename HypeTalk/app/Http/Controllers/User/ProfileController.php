@@ -10,27 +10,10 @@ use Illuminate\Support\Facades\Gate;
 class ProfileController extends Controller
 {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function __construct()
     {
-        //
+        $this->authorizeResource(Profile::class, 'profile');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -58,10 +41,6 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        if(Gate::denies('edit-profile', $profile))
-        {
-            return redirect(route('profile.show', $profile));
-        }
         return view('profile.edit')->with('profile', $profile);
     }
 
@@ -76,6 +55,7 @@ class ProfileController extends Controller
     {
         $profile->title = $request->title;
         $profile->description = $request->description;
+        $profile->visibility = $request->visibility;
         $profile->save();
 
         return redirect()->route('profile.show', $profile);

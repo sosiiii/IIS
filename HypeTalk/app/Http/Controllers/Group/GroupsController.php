@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Gate;
 
 class GroupsController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Group::class, 'group');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $groups = auth()->user()->groups()->wherePivot('role', '=', 'admin', 'or')->wherePivot('role', '=', 'manager')->get();
+        $groups = auth()->user()->groups()->wherePivot('role', '=', 'admin', 'or')->get();
         return view('group.index')->with('groups', $groups);
     }
 
@@ -57,11 +61,15 @@ class GroupsController extends Controller
      */
     public function show(Group $group)
     {
-        $member = $group->members()->find(auth()->user()->id);
         $role = 'not_in_table';
-        if($member != null)
+        if(auth()->check())
         {
-            $role = $member->pivot->role;
+            $member = $group->members()->find(auth()->user()->id);
+            $role = 'not_in_table';
+            if($member != null)
+            {
+                $role = $member->pivot->role;
+            }
         }
         $posts = $group->posts->sortByDesc('rating');
         return view('group.show')->with([
@@ -79,10 +87,6 @@ class GroupsController extends Controller
      */
     public function edit(Group $group)
     {
-        if(Gate::denies('group-edit', $group))
-        {
-            return redirect(route('group.show', $group));
-        }
         return view('group.edit')->with('group', $group);
     }
 
@@ -97,6 +101,7 @@ class GroupsController extends Controller
     {
         $group->name = $request->name;
         $group->description = $request->description;
+        $group->visibility = $request->visibility;
         $group->save();
 
         return redirect()->route('group.show', $group);

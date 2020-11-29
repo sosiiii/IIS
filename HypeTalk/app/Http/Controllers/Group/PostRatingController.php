@@ -37,10 +37,13 @@ class PostRatingController extends Controller
      */
     public function store(Request $request, Post $post)
     {
+        if(!Auth()->check())
+        {
+            return $post->rating;
+        }
         $data = request();
-
-        $rating = Rating::where('user_id', '=', Auth()->user()->id)->where('post_id', '=', $post->id)->first();
-        if($rating === null)
+        $postRating = Rating::where('user_id', '=', Auth()->user()->id)->where('post_id', '=', $post->id)->first();
+        if($postRating === null)
         {
             $postRating = new Rating([
                 'value' => $data->value,
@@ -49,7 +52,7 @@ class PostRatingController extends Controller
             $postRating->post()->associate($post->id);
             $postRating->save();
         }
-        $rating->update(array('value' => $data->value));
+        $postRating->update(array('value' => $data->value));
         $post->update(array('rating' => $post->ratings->sum('value')));
         return $post->rating;
 

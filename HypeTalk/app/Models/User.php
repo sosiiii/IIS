@@ -81,8 +81,14 @@ class User extends Authenticatable
     public function isGroupAdminOrManager()
     {
         $result = $this->groups()
+        ->wherePivot('role', '=', 'admin')->get();
+        return $result != null;
+    }
+    public function isMember()
+    {
+        $result = $this->groups()
         ->wherePivot('role', '=', 'admin', 'or')
-        ->wherePivot('role', '=', 'manager')->get();
+        ->wherePivot('role', '=', 'manager')->wherePivot('role', '=', 'member')->get();
         return $result != null;
     }
     public function isAdmin()

@@ -13,7 +13,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Post' => 'App\Policies\PostPolicy',
+        'App\Models\Profile' => 'App\Policies\ProfilePolicy',
+        'App\Models\Group' => 'App\Policies\GroupPolicy',
     ];
 
     /**
@@ -28,18 +30,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-panel', function($user){
             return $user->isAdmin();
         });
-        Gate::define('edit-profile', function($user, $profile){
-            return ($user->profile == $profile) || $user->isAdmin();
-        });
-        Gate::define('group-create', function($user){
-            return $user->isUser();
-        });
-        Gate::define('group-edit', function($user, $group){
-            return $user->isAdmin();
-        });
-        Gate::define('group-manage', function($user){
-            return $user->isGroupAdminOrManager();
-        });
-        //
     }
 }

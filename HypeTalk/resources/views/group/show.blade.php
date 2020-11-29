@@ -3,11 +3,8 @@
 @section('header')
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm justify-content-center">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#" style="border-bottom: 3px solid darkgray;">{{$group->name}}</a>
-            </li>
             <li class="nav-item">
-                <button-join-group group-id="{{$group->id}}" role="{{$role}}"></button-join-group>
+                <h2>{{$group->name}}</h2>
             </li>
         </ul>
     </nav>
@@ -31,6 +28,28 @@
         <div class="d-flex justify-content-center">{{$group->description}}</div>
     </div>
 </div>
+@guest
+
+@else
+<div class="d-flex flex-column shadow-sm p-2 mb-4" style="background-color: #ebebeb;">
+    <div class="d-flex flex-row">
+        <div class=""><h4>{{"Actions"}}</h4></div>
+    </div>
+    <div class="d-flex flex-row">
+        @if($role != 'admin')
+            <button-join-group group-id="{{$group->id}}" role="{{$role}}"></button-join-group>
+        @endif
+        @can('update',$group)
+                <a href="{{route('group.edit', $group)}}" class="ml-3 float-right">
+                    <button type="button" class="btn btn-info">Edit group</button>
+                </a>
+                <a href="{{route('group.members.index', $group)}}" class="ml-3 float-right">
+                    <button type="button" class="btn btn-info">Edit members</button>
+                </a>
+        @endcan
+    </div>
+</div>
+@endguest
 <div class="d-flex flex-column shadow-sm p-2 mb-4" style="background-color: #ebebeb;">
     <div class="d-flex flex-row">
         <div class=""><h4>{{"Members"}}</h4></div>

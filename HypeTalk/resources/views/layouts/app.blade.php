@@ -52,7 +52,7 @@
                         </li>
                     @endguest
                     </ul>
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto" style="z-index: 1000;">
                         <my-bar></my-bar>
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -87,23 +87,18 @@
                                         @csrf
                                     </form>
                                     <a class="dropdown-item" href="{{ route('profile.show', Auth::user()) }}">
-                                        {{ __('My Profile') }}
+                                        {{ __('My profile') }}
                                     </a>
                                     @can('admin-panel')
                                     <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                         {{ __('User managment') }}
                                     </a>
                                     @endcan
-                                    @can('group-manage')
                                     <a class="dropdown-item" href="{{ route('admin.groups.index') }}">
-                                        {{ __('Group managment') }}
-                                    </a>
-                                    @endcan
-                                    @can('group-create')
+                                        {{ __('My groups') }}
                                     <a class="dropdown-item" href="{{ route('group.create') }}">
                                         {{ __('Add new group') }}
                                     </a>
-                                    @endcan
                                 </div>
                             </li>
                         @endguest

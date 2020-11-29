@@ -19,6 +19,7 @@ class CreateProfilesTable extends Migration
             $table->string("title")->nullable();
             $table->text("description")->nullable();
             $table->text("url")->nullable();
+            $table->integer("visibility")->default(0);
             $table->timestamps();
         });
     }

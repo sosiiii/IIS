@@ -15,8 +15,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderByDesc('rating')->get();
-        $groups = Group::All();
+        if(Auth()->check())
+        {
+            $posts = Post::orderByDesc('rating')->get();
+            $groups = Group::All();
+        }
+        else
+        {
+            $posts = Post::orderByDesc('rating')->get();
+            $groups = Group::where('visibility', '=', '0')->get();
+        }
         return view('home')->with([
             'posts' => $posts,
             'groups' => $groups

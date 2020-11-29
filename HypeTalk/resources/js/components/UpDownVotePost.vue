@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-column" >
+    <div class="d-flex flex-column mt-1" >
         <button class="btn p-0" @click="upVote"><i class="fas fa-arrow-up fa-lg"></i></button>
         <button class="btn p-0" v-text="buttonText"></button>
         <button class="btn p-0" @click="downVote"><i class="fas fas fa-arrow-down fa-lg"></i></button>

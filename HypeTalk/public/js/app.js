@@ -37932,7 +37932,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "d-flex flex-column" }, [
+  return _c("div", { staticClass: "d-flex flex-column mt-1" }, [
     _c("button", { staticClass: "btn p-0", on: { click: _vm.upVote } }, [
       _c("i", { staticClass: "fas fa-arrow-up fa-lg" })
     ]),

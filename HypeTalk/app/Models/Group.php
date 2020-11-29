@@ -20,6 +20,7 @@ class Group extends Model implements Searchable
     protected $fillable = [
         'name',
         'description',
+        'visibility',
     ];
     public function members()
     {
@@ -34,5 +35,9 @@ class Group extends Model implements Searchable
        $url = route('group.show', $this->id);
 
        return new SearchResult($this, $this->name, $url);
+    }
+    public function visible()
+    {
+        return $this->visibility == 0;
     }
 }
