@@ -19,8 +19,6 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('button-join-group', require('./components/ButtonJoinGroup.vue').default);
-Vue.component('my-bar', require('./components/MySearchBar.vue').default);
 Vue.component('post-textarea', require('./components/PostTextArea.vue').default);
 Vue.component('up-down-vote-post', require('./components/UpDownVotePost.vue').default);
 Vue.component('up-down-vote-comment', require('./components/UpDownVoteComment.vue').default);

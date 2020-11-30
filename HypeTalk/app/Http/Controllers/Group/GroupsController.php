@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Group;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -115,6 +116,6 @@ class GroupsController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+
     }
 }

@@ -81,7 +81,25 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $post->user->id === $user->id;
+        if($post->user->id === $user->id)
+        {
+            return true;
+        }
+        else
+        {
+            $group = $post->group;
+            $member = $group->members()->find($user);
+            if($member != null)
+            {
+                $myRole = $member->pivot->role;
+
+                if(strcmp($myRole, 'admin') === 0 || strcmp($myRole, 'moderator') === 0)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

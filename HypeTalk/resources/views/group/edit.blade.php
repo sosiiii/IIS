@@ -5,7 +5,7 @@
     <div class="card-body">
         <form action="{{ route('group.update', $group)}}" method="POST">
             @csrf
-            {{method_field('PUT')}}
+
             <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 

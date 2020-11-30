@@ -11,11 +11,15 @@
 @endsection
 @section('left-side')
 <div class="d-flex flex-column shadow-sm p-2 mb-4" style="background-color: #ebebeb;">
+@guest
+
+@else
 @if(Auth()->user()->isMember($group->name))
 <a href="{{route('group.posts.create', $group->id)}}" class="float-left">
     <input class="form-control" type="text" placeholder="Create new post" aria-label="Search">
 </a>
 @endif
+@endguest
 </div>
     @foreach ($posts as $post)
         @include('layouts.post_template', $post)
@@ -40,7 +44,26 @@
     <div class="d-flex flex-row">
 
         @if($role != 'admin')
-            <button-join-group group-id="{{$group->id}}" role="{{$role}}"></button-join-group>
+            @if($role == 'not_in_table')
+                <form method="POST" action="{{route('group.members.store', [$group])}}">
+                    @csrf
+                    <button type="submit" class="btn btn-info p-0">Ask to join</button>
+                </form>
+            @endif
+            @if($role == 'member_request')
+                <form method="POST" action="{{route('group.members.destroy', [$group, auth()->user()])}}">
+                    @csrf
+                    {{method_field('DELETE')}}
+                    <button type="submit" class="btn btn-info p-0">Cancel request</button>
+                </form>
+            @endif
+            @if($role == 'member' || $role == 'manager')
+            <form method="POST" action="{{route('group.members.destroy', [$group, auth()->user()])}}">
+                @csrf
+                {{method_field('DELETE')}}
+                <button type="submit" class="btn btn-info p-0">Leave</button>
+            </form>
+        @endif
         @endif
         @can('update',$group)
                 <a href="{{route('group.edit', $group)}}" class="ml-3 float-right">

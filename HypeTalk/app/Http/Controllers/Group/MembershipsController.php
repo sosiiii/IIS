@@ -34,25 +34,10 @@ class MembershipsController extends Controller
      */
     public function store(Group $group)
     {
-        $member = $group->members()->find(auth()->user()->id);
-        if($member)
-        {
-            if(strcmp($member->pivot->role, 'member_request') == 0)
-            {
-                auth()->user()->groups()->toggle($group);
-                return 'not_in_table';
-            }
-            else
-            {
-                auth()->user()->groups()->toggle($group);
-                return 'member';
-            }
-        }
-        else
-        {
-            $group->members()->attach(auth()->user()->id, ['role' => 'member_request']);
-            return 'member_request';
-        }
+        $group->members()->attach(auth()->user()->id, ['role' => 'member_request']);
+        return redirect()->back();
+
+
     }
     /**
      * Show the form for editing the specified resource.
@@ -92,8 +77,10 @@ class MembershipsController extends Controller
      * @param  \App\Models\Membership  $membership
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Membership $membership)
+    public function destroy(Group $group, User $member)
     {
-        //
+        $member->groups()->toggle($group);
+
+        return redirect()->back();
     }
 }

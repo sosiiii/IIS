@@ -23,7 +23,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::namespace('App\Http\Controllers\User')->group(function(){
     Route::resource('profile' , 'ProfileController', ['only' => ['show', 'edit', 'update']]);
 });
-Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->group(function(){
+Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->middleware('can:admin-panel')->group(function(){
     Route::resource('/users' , 'UsersController', ['only' => ['index', 'edit', 'update', 'destroy']]);
     Route::resource('/groups' , 'GroupsController', ['only' => ['index', 'edit', 'update', 'destroy']]);
 });

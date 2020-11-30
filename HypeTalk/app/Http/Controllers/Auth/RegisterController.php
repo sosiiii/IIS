@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Profile;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -65,6 +66,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         $userRole = Role::select('id')->where('name', 'user')->first();
         $user = User::create([
             'name' => $data['name'],
@@ -73,5 +75,10 @@ class RegisterController extends Controller
         ]);
         $user->roles()->attach($userRole);
         return $user;
+    }
+    public function redirectTo()
+    {
+        $this->redirectTo = route('home');
+        return $this->redirectTo;
     }
 }
