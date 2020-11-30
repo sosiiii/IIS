@@ -39,7 +39,6 @@
         </div>
     </div>
     <div class="d-flex flex-column">
-        <div class="d-flex justify-content-center">karma</div>
         @can('update', $profile)
             <div class="d-flex justify-content-center"><a href="{{route('profile.edit', $profile->user)}}"><button type="button" class="btn btn-info">Edit</button></a></div>
         @endcan

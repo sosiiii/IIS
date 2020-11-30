@@ -6,15 +6,21 @@
                 <up-down-vote-post post-id="{{$post->id}}" post-rating="{{$post->rating}}"></up-down-vote-post>
             </div>
         </div>
-        <div class="mx-3">
+        <div class="mx-3 flex-grow-1">
             <div class="d-flex flex-column">
-                <div class="mt-1">{{$post->group->name}}</div>
+                <div class="mr-auto mt-1" style="cursor: pointer;" onclick="location.href='{{route('group.show', $post->group)}}';">{{$post->group->name}}</div>
                 <div class="mb-2"><h3>{{$post->title}}</h3></div>
                 <div class="mb-3">{{$post->description}}</div>
                 <div class="mb-4" style="cursor: pointer;" onclick="location.href='{{route('profile.show', $post->user)}}';">{{$post->user->name}}</div>
-                <div class="mb-4">
-                    <post-textarea group-id="{{$post->group->id}}" post-id="{{$post->id}}"></post-textarea>
-                </div>
+                @guest
+
+                @else
+                    @if(Auth()->user()->isMember($post->group->name))
+                        <div class="mb-4">
+                            <post-textarea group-id="{{$post->group->id}}" post-id="{{$post->id}}"></post-textarea>
+                        </div>
+                    @endif
+                @endguest
                 <div class="p-1">
                     <div class="row">
                         <div class="col"><hr></div>

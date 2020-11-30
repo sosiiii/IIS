@@ -78,17 +78,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(CommentRating::class);
     }
-    public function isGroupAdminOrManager()
+    public function isGroupAdmin($name)
     {
-        $result = $this->groups()
-        ->wherePivot('role', '=', 'admin')->get();
+        $result = $this->groups()->where('name', '=', $name)
+        ->wherePivot('role', '=', 'admin')->first();
         return $result != null;
     }
-    public function isMember()
+    public function isMember($name)
     {
-        $result = $this->groups()
-        ->wherePivot('role', '=', 'admin', 'or')
-        ->wherePivot('role', '=', 'manager')->wherePivot('role', '=', 'member')->get();
+        $result = $this->groups()->where('name', '=', $name)
+        ->wherePivotIn('role', ['admin', 'manager', 'member'])->first();
         return $result != null;
     }
     public function isAdmin()

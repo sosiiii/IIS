@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Comment::class, 'comment');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,18 +43,21 @@ class CommentController extends Controller
      */
     public function store(Request $request, Group $group, Post $post)
     {
-        if(!Auth()->check())
+        if(!Auth()->user()->isMember($group->name))
         {
-            return;
+            //
         }
-        $data = request();
-        $comment = new Comment([
-            'title' => $data->title,
-        ]);
+        else
+        {
+            $data = request();
+            $comment = new Comment([
+                'title' => $data->title,
+            ]);
 
-        $comment->user()->associate(Auth()->user());
-        $comment->post()->associate($post);
-        $comment->save();
+            $comment->user()->associate(Auth()->user());
+            $comment->post()->associate($post);
+            $comment->save();
+        }
     }
 
     /**

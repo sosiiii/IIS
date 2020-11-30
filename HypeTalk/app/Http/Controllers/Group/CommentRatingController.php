@@ -37,7 +37,10 @@ class CommentRatingController extends Controller
      */
     public function store(Request $request, Comment $comment)
     {
-
+        if(!Auth()->check() || !Auth()->user()->isMember($post->group->name))
+        {
+            return $comment->commentratings()->sum('value');
+        }
         $data = request();
         $commentRating = CommentRating::where('user_id', '=', Auth()->user()->id)->where('comment_id', '=', $comment->id)->first();
         if($commentRating === null)

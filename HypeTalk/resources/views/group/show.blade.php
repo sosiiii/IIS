@@ -11,9 +11,11 @@
 @endsection
 @section('left-side')
 <div class="d-flex flex-column shadow-sm p-2 mb-4" style="background-color: #ebebeb;">
+@if(Auth()->user()->isMember($group->name))
 <a href="{{route('group.posts.create', $group->id)}}" class="float-left">
     <input class="form-control" type="text" placeholder="Create new post" aria-label="Search">
 </a>
+@endif
 </div>
     @foreach ($posts as $post)
         @include('layouts.post_template', $post)
@@ -36,6 +38,7 @@
         <div class=""><h4>{{"Actions"}}</h4></div>
     </div>
     <div class="d-flex flex-row">
+
         @if($role != 'admin')
             <button-join-group group-id="{{$group->id}}" role="{{$role}}"></button-join-group>
         @endif

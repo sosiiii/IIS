@@ -1,4 +1,13 @@
 @extends('layouts.content_pages_template')
+@section('header')
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <h2>{{$group->name}}</h2>
+            </li>
+        </ul>
+    </nav>
+@endsection
 @section('left-side')
     @include('layouts.post_show_template', $post)
 @endsection

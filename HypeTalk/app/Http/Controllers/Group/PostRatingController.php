@@ -37,7 +37,7 @@ class PostRatingController extends Controller
      */
     public function store(Request $request, Post $post)
     {
-        if(!Auth()->check())
+        if(!Auth()->check() || !Auth()->user()->isMember($post->group->name))
         {
             return $post->rating;
         }

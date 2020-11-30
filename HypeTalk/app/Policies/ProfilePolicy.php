@@ -34,7 +34,7 @@ class ProfilePolicy
         {
             return true;
         }
-        else if($profile->visibility === 1 && Auth::check())
+        else if($profile->visibility === 1 && Auth()->check())
         {
             return true;
         }

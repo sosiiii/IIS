@@ -30,6 +30,7 @@ class PostsController extends Controller
      */
     public function create(Group $group)
     {
+
         return view('group.posts.create')->with('group', $group);
     }
 
@@ -98,6 +99,7 @@ class PostsController extends Controller
      */
     public function destroy(Group $group, Post $post)
     {
+        $post->comments()->delete();
         $post->delete();
         return redirect()->back();
     }
