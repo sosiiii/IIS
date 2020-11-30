@@ -37798,7 +37798,7 @@ var render = function() {
       ? _c(
           "ul",
           { staticClass: "list-group list-group-flush position-absolute" },
-          _vm._l(_vm.results.slice(0, 10), function(result) {
+          _vm._l(_vm.results.slice(0, 5), function(result) {
             return _c(
               "li",
               { key: result.id, staticClass: "list-group-item" },

@@ -49,15 +49,15 @@ class CommentController extends Controller
         }
         else
         {
-            $data = request();
             $comment = new Comment([
-                'title' => $data->title,
+                'title' => $request->comment,
             ]);
 
             $comment->user()->associate(Auth()->user());
             $comment->post()->associate($post);
             $comment->save();
         }
+        return redirect()->back();
     }
 
     /**

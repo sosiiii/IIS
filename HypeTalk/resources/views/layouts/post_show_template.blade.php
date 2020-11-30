@@ -17,7 +17,11 @@
                 @else
                     @if(Auth()->user()->isMember($post->group->name))
                         <div class="mb-4">
-                            <post-textarea group-id="{{$post->group->id}}" post-id="{{$post->id}}"></post-textarea>
+                            <form method="POST" action="{{route('group.comment.store', [$post->group, $post])}}">
+                                @csrf
+                                <textarea  name="comment" class="form-control z-depth-1" style="overflow:auto;resize:none" rows="4" cols="5" placeholder="Your comment..."></textarea>
+                               <button type="submit" class="form-control btn btn btn-primary p-0">comment</button>
+                            </form>
                         </div>
                     @endif
                 @endguest

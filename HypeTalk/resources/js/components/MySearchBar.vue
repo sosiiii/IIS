@@ -2,7 +2,7 @@
     <div>
       <input type="text" placeholder="Search" v-model="query" class="form-control">
       <ul v-if="results.length > 0 && query" class="list-group list-group-flush position-absolute">
-        <li v-for="result in results.slice(0,10)" :key="result.id" class="list-group-item">
+        <li v-for="result in results.slice(0,5)" :key="result.id" class="list-group-item">
           <a :href="result.url">
             <div v-text="result.title"></div>
           </a>
