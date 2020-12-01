@@ -4,8 +4,8 @@
     <div class="card-header">{{"Edit ".$group->name}}</div>
     <div class="card-body">
         <form action="{{ route('group.update', $group)}}" method="POST">
+            {{method_field('PUT')}}
             @csrf
-
             <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 

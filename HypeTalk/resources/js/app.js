@@ -19,9 +19,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('post-textarea', require('./components/PostTextArea.vue').default);
+
 Vue.component('up-down-vote-post', require('./components/UpDownVotePost.vue').default);
 Vue.component('up-down-vote-comment', require('./components/UpDownVoteComment.vue').default);
+Vue.component('my-bar', require('./components/MySearchBar.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -37,7 +37,7 @@ class CommentRatingController extends Controller
      */
     public function store(Request $request, Comment $comment)
     {
-        if(!Auth()->check() || !Auth()->user()->isMember($post->group->name))
+        if(!Auth()->check() || !Auth()->user()->isMember($comment->post->group->name))
         {
             return $comment->commentratings()->sum('value');
         }

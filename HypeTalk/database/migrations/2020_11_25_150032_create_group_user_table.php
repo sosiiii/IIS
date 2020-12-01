@@ -17,7 +17,7 @@ class CreateGroupUserTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('group_id');
-            $table->string('role')->nullable();
+            $table->text('role')->nullable();
             $table->timestamps();
         });
     }

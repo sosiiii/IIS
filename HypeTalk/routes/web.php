@@ -33,7 +33,7 @@ Route::namespace('App\Http\Controllers\Group')->group(function(){
 Route::namespace('App\Http\Controllers\Group')->prefix('group/{group}')->name('group.')->group(function(){
     Route::resource('/members' , 'MembershipsController', ['only' => ['index','edit', 'update', 'destroy', 'store']]);
     Route::resource('/posts' , 'PostsController', ['only' => ['show', 'edit', 'update', 'destroy', 'store', 'create']]);
-    Route::resource('/posts/{post}/comment' , 'CommentController', ['only' => ['store']]);
+    Route::resource('/posts/{post}/comment' , 'CommentController', ['only' => ['store', 'destroy']]);
 });
 
 Route::post('/rating/post/{post}', [App\Http\Controllers\Group\PostRatingController::class, 'store'])->name('rating.post.store');

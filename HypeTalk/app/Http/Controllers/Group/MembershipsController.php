@@ -15,6 +15,10 @@ class MembershipsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->authorizeResource(Group::class, 'group');
+    }
     public function index(Group $group)
     {
         $members = $group->members;

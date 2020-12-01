@@ -2,14 +2,22 @@
 
 namespace App\Policies;
 
-use App\Models\Comment;
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CommentPolicy
+class MemberPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+
+        if ($user->isAdmin())
+        {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any models.
      *
@@ -25,10 +33,10 @@ class CommentPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Group  $group
      * @return mixed
      */
-    public function view(User $user, Comment $comment)
+    public function view(User $user, Group $group)
     {
         //
     }
@@ -41,59 +49,50 @@ class CommentPolicy
      */
     public function create(User $user)
     {
-        return true;
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Group  $group
      * @return mixed
      */
-    public function update(User $user, Comment $comment)
+    public function update(User $user, Group $group)
     {
-
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return mixed
-     */
-    public function delete(User $user, Comment $comment)
-    {
-        if($comment->user->id === $user->id)
+        $member = $group->members()->find($user->id);
+        if($member != null)
         {
-            return true;
-        }
-        else
-        {
-            $group = $comment->post->group;
-            $member = $group->members()->find($user);
-            if($member != null)
+            $role = $member->pivot->role;
+            if(strcmp($role, 'admin') === 0)
             {
-                $myRole = $member->pivot->role;
-
-                if(strcmp($myRole, 'admin') === 0 || strcmp($myRole, 'moderator') === 0)
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
     }
 
     /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Group  $group
+     * @return mixed
+     */
+    public function delete(User $user, Group $group)
+    {
+        //
+    }
+
+    /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Group  $group
      * @return mixed
      */
-    public function restore(User $user, Comment $comment)
+    public function restore(User $user, Group $group)
     {
         //
     }
@@ -102,10 +101,10 @@ class CommentPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Group  $group
      * @return mixed
      */
-    public function forceDelete(User $user, Comment $comment)
+    public function forceDelete(User $user, Group $group)
     {
         //
     }

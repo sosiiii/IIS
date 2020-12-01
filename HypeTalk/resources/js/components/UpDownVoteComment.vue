@@ -26,7 +26,7 @@
                     value: 1
                 })
                 .then(response => {
-                   this.commentRatngValue = response.data;
+                    this.commentRatngValue = response.data;
                 })
 
             },
